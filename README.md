@@ -21,7 +21,3 @@ IPL-themed Tic-Tac-Toe — pick your home and away teams from all 10 franchises,
 npm install
 npm run dev
 ```
-
-## License
-
-MIT
