@@ -18,11 +18,11 @@ export default function TeamSelector({ onStart }) {
     <div style={{
       minHeight: '100vh', overflowY: 'auto',
       display: 'flex', flexDirection: 'column', alignItems: 'center',
-      justifyContent: 'center', padding: '28px 20px',
+      justifyContent: 'safe center', padding: '20px 20px',
     }}>
 
       {/* Header */}
-      <div style={{ position: 'relative', textAlign: 'center', marginBottom: '20px' }}>
+      <div style={{ position: 'relative', textAlign: 'center', marginBottom: '14px' }}>
         <div style={{
           position: 'absolute', inset: '-16px -60px', zIndex: 0,
           background: 'radial-gradient(ellipse at center, rgba(253,185,19,0.13) 0%, transparent 70%)',
@@ -45,7 +45,7 @@ export default function TeamSelector({ onStart }) {
       </div>
 
       {/* Step pills */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
         {[
           { label: homeTeam ? `${homeTeam.short} ✓` : 'Home', active: step === 1, done: !!homeTeam },
           { label: awayTeam ? `${awayTeam.short} ✓` : 'Away', active: step === 2, done: !!awayTeam },
@@ -65,7 +65,7 @@ export default function TeamSelector({ onStart }) {
         ))}
       </div>
 
-      <p style={{ fontFamily: "'Barlow Condensed'", fontSize: '13px', color: 'rgba(255,255,255,0.35)', marginBottom: '16px', letterSpacing: '0.5px' }}>
+      <p style={{ fontFamily: "'Barlow Condensed'", fontSize: '13px', color: 'rgba(255,255,255,0.35)', marginBottom: '10px', letterSpacing: '0.5px' }}>
         {step === 1 ? 'Pick HOME team (plays as ✕)' :
           awayTeam ? 'Both teams locked in! Ready to battle.' :
           `Pick AWAY team vs ${homeTeam?.short} (plays as ○)`}
@@ -78,7 +78,7 @@ export default function TeamSelector({ onStart }) {
         gap: '14px',
         width: '100%',
         maxWidth: '820px',
-        marginBottom: '20px',
+        marginBottom: '12px',
       }}>
         {TEAMS.map((team) => {
           const isHome = homeTeam?.id === team.id;
@@ -170,7 +170,7 @@ export default function TeamSelector({ onStart }) {
 
       {/* VS preview */}
       {homeTeam && awayTeam && (
-        <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginTop: '20px', animation: 'fadeSlideUp 0.4s ease' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginTop: '14px', animation: 'fadeSlideUp 0.4s ease' }}>
           <div style={{ textAlign: 'center' }}>
             <img src={homeTeam.logo} alt="" onError={e => e.target.style.display='none'} style={{ width: '40px', height: '40px', objectFit: 'contain', margin: '0 auto 4px' }} />
             <div className="font-display" style={{ fontSize: '18px', color: homeTeam.primary, letterSpacing: '2px' }}>{homeTeam.short}</div>
