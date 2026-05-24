@@ -71,13 +71,13 @@ export default function TeamSelector({ onStart }) {
           `Pick AWAY team vs ${homeTeam?.short} (plays as ○)`}
       </p>
 
-      {/* 10-team grid: 5 cols × 2 rows, compact cards */}
+      {/* 10-team grid: 5 cols × 2 rows */}
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(5, 1fr)',
-        gap: '10px',
+        gap: '14px',
         width: '100%',
-        maxWidth: '680px',
+        maxWidth: '820px',
         marginBottom: '20px',
       }}>
         {TEAMS.map((team) => {
@@ -89,24 +89,24 @@ export default function TeamSelector({ onStart }) {
           return (
             <button key={team.id} onClick={() => !isDisabled && handlePick(team)} style={{
               position: 'relative',
-              padding: '14px 8px 12px',
-              borderRadius: '12px', textAlign: 'center',
+              padding: '20px 14px 18px',
+              borderRadius: '14px', textAlign: 'center',
               cursor: isDisabled ? 'not-allowed' : 'pointer',
               border: `2px solid ${isSelected ? team.primary : 'rgba(255,255,255,0.07)'}`,
               background: isSelected
                 ? `linear-gradient(160deg,${team.primary}22 0%,${team.primary}08 100%)`
                 : '#0c1f14',
-              boxShadow: isSelected ? `0 0 20px ${team.primary}28` : 'none',
+              boxShadow: isSelected ? `0 0 24px ${team.primary}30` : 'none',
               opacity: isDisabled ? 0.3 : 1,
-              transform: isSelected ? 'translateY(-2px)' : 'none',
-              transition: 'all 0.18s ease', outline: 'none',
+              transform: isSelected ? 'translateY(-3px)' : 'none',
+              transition: 'all 0.2s ease', outline: 'none',
             }}>
-              <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3px', borderRadius: '11px 11px 0 0', background: team.primary }} />
+              <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3px', borderRadius: '13px 13px 0 0', background: team.primary }} />
 
               {isSelected && (
                 <div style={{
-                  position: 'absolute', top: '5px', right: '5px',
-                  fontSize: '8px', padding: '2px 5px', borderRadius: '3px',
+                  position: 'absolute', top: '6px', right: '6px',
+                  fontSize: '9px', padding: '2px 7px', borderRadius: '4px',
                   fontFamily: "'Barlow Condensed'", fontWeight: 700, letterSpacing: '1px',
                   background: team.primary, color: team.darkText ? '#000' : '#fff',
                 }}>
@@ -114,18 +114,25 @@ export default function TeamSelector({ onStart }) {
                 </div>
               )}
 
-              <img src={team.logo} alt={team.short}
-                onError={e => { e.target.style.display='none'; e.target.nextSibling.style.display='block'; }}
-                style={{ width: '36px', height: '36px', objectFit: 'contain', margin: '0 auto 6px', display: 'block' }}
-              />
-              <span style={{ display: 'none', fontSize: '24px', marginBottom: '6px' }}>{team.emoji}</span>
+              <div style={{
+                width: 'clamp(56px, 8vw, 76px)',
+                height: 'clamp(56px, 8vw, 76px)',
+                margin: '0 auto 8px',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                background: 'rgba(0,0,0,0.3)', borderRadius: '10px',
+              }}>
+                <img src={team.logo} alt={team.short}
+                  onError={e => { e.target.style.display='none'; e.target.parentElement.style.background='none'; e.target.nextSibling.style.display='block'; }}
+                  style={{ width: 'clamp(48px, 7vw, 66px)', height: 'clamp(48px, 7vw, 66px)', objectFit: 'contain', display: 'block' }}
+                />
+                <span style={{ display: 'none', fontSize: '32px' }}>{team.emoji}</span>
+              </div>
 
-              <div className="font-display" style={{ fontSize: '17px', letterSpacing: '1.5px', color: isSelected ? team.primary : '#fff', lineHeight: 1 }}>
+              <div className="font-display" style={{ fontSize: 'clamp(22px, 3.5vw, 30px)', letterSpacing: '2px', color: isSelected ? team.primary : '#fff', lineHeight: 1 }}>
                 {team.short}
               </div>
-              <div style={{ fontSize: '9px', color: 'rgba(255,255,255,0.28)', marginTop: '2px', lineHeight: 1.2 }}>
-                {/* Show last 2 words of team name */}
-                {team.name.split(' ').slice(-2).join(' ')}
+              <div style={{ fontSize: 'clamp(12px, 1.8vw, 16px)', color: 'rgba(255,255,255,0.4)', marginTop: '3px', lineHeight: 1.2 }}>
+                {team.name}
               </div>
             </button>
           );
