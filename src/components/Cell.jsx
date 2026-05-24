@@ -49,7 +49,7 @@ export default function Cell({ value, index, onClick, teams, isWinCell, isLastMo
             src={team.logo}
             alt={team.short}
             onError={e => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }}
-            style={{ width: '42px', height: '42px', objectFit: 'contain' }}
+            style={{ width: '48px', height: '48px', objectFit: 'contain' }}
           />
           <span style={{ display: 'none', fontSize: '32px' }}>{team.emoji}</span>
           <span className="font-display" style={{ fontSize: '13px', letterSpacing: '2px', color: team.primary, lineHeight: 1 }}>

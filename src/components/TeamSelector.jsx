@@ -172,13 +172,13 @@ export default function TeamSelector({ onStart }) {
       {homeTeam && awayTeam && (
         <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginTop: '20px', animation: 'fadeSlideUp 0.4s ease' }}>
           <div style={{ textAlign: 'center' }}>
-            <img src={homeTeam.logo} alt="" onError={e => e.target.style.display='none'} style={{ width: '28px', height: '28px', objectFit: 'contain', margin: '0 auto 3px' }} />
-            <div className="font-display" style={{ fontSize: '16px', color: homeTeam.primary, letterSpacing: '2px' }}>{homeTeam.short}</div>
+            <img src={homeTeam.logo} alt="" onError={e => e.target.style.display='none'} style={{ width: '40px', height: '40px', objectFit: 'contain', margin: '0 auto 4px' }} />
+            <div className="font-display" style={{ fontSize: '18px', color: homeTeam.primary, letterSpacing: '2px' }}>{homeTeam.short}</div>
           </div>
-          <div className="font-display" style={{ fontSize: '22px', color: 'rgba(255,255,255,0.18)', letterSpacing: '4px' }}>VS</div>
+          <div className="font-display" style={{ fontSize: '26px', color: 'rgba(255,255,255,0.25)', letterSpacing: '4px' }}>VS</div>
           <div style={{ textAlign: 'center' }}>
-            <img src={awayTeam.logo} alt="" onError={e => e.target.style.display='none'} style={{ width: '28px', height: '28px', objectFit: 'contain', margin: '0 auto 3px' }} />
-            <div className="font-display" style={{ fontSize: '16px', color: awayTeam.primary, letterSpacing: '2px' }}>{awayTeam.short}</div>
+            <img src={awayTeam.logo} alt="" onError={e => e.target.style.display='none'} style={{ width: '40px', height: '40px', objectFit: 'contain', margin: '0 auto 4px' }} />
+            <div className="font-display" style={{ fontSize: '18px', color: awayTeam.primary, letterSpacing: '2px' }}>{awayTeam.short}</div>
           </div>
         </div>
       )}

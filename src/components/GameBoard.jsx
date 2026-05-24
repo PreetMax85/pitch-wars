@@ -80,10 +80,10 @@ export default function GameBoard({ teams, game, onChangeTeams }) {
             position: 'absolute', inset: 0,
             backgroundImage: 'url(/pitch.png)',
             backgroundSize: 'cover', backgroundPosition: 'center',
-            filter: 'saturate(0.6)',
+            filter: 'saturate(0.7)',
           }} />
           {/* Overlay */}
-          <div style={{ position: 'absolute', inset: 0, background: 'rgba(4,14,8,0.74)' }} />
+          <div style={{ position: 'absolute', inset: 0, background: 'rgba(4,14,8,0.55)' }} />
           {/* CSS fallback */}
           <div style={{
             position: 'absolute', inset: 0, zIndex: -1,
@@ -109,9 +109,9 @@ export default function GameBoard({ teams, game, onChangeTeams }) {
         </div>
 
         {/* Commentary */}
-        <div style={{ height: '22px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ height: '26px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <p style={{
-            fontSize: '13px', fontStyle: 'italic', color: 'rgba(255,255,255,0.5)',
+            fontSize: '15px', fontStyle: 'italic', color: 'rgba(255,255,255,0.7)',
             textAlign: 'center', letterSpacing: '0.3px',
             opacity: commentaryVisible ? 1 : 0,
             transform: commentaryVisible ? 'translateY(0)' : 'translateY(5px)',

@@ -1,50 +1,54 @@
+// Slim horizontal score bar — fits in ~72px
 export default function ScoreTracker({ teams, scores }) {
   return (
     <div style={{
       display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-      width: '100%', marginBottom: '28px', padding: '20px 24px',
-      background: 'rgba(255,255,255,0.03)', borderRadius: '16px',
+      width: '100%', padding: '12px 20px',
+      background: 'rgba(255,255,255,0.03)', borderRadius: '12px',
       border: '1px solid rgba(255,255,255,0.07)',
+      marginBottom: '12px',
     }}>
       {/* Home */}
-      <div style={{ textAlign: 'center', flex: 1 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
         <img src={teams.X.logo} alt={teams.X.short}
-          onError={e => { e.target.style.display = 'none'; e.target.nextSibling.style.display='block'; }}
-          style={{ width: '40px', height: '40px', objectFit: 'contain', margin: '0 auto 6px' }}
+          onError={e => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'inline'; }}
+          style={{ width: '34px', height: '34px', objectFit: 'contain' }}
         />
-        <span style={{ display: 'none', fontSize: '28px' }}>{teams.X.emoji}</span>
-        <div className="font-display" style={{ fontSize: '22px', letterSpacing: '3px', color: teams.X.primary, lineHeight: 1 }}>
-          {teams.X.short}
+        <span style={{ display: 'none', fontSize: '20px' }}>{teams.X.emoji}</span>
+        <div>
+          <div className="font-display" style={{ fontSize: '17px', letterSpacing: '2px', color: teams.X.primary, lineHeight: 1 }}>
+            {teams.X.short}
+          </div>
+          <div style={{ fontSize: '10px', letterSpacing: '2px', color: 'rgba(255,255,255,0.25)', textTransform: 'uppercase' }}>
+            Home
+          </div>
         </div>
-        <div style={{ fontSize: '11px', letterSpacing: '3px', color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', margin: '2px 0 10px' }}>
-          Home
-        </div>
-        <div className="font-display" style={{ fontSize: '56px', lineHeight: 1, color: teams.X.primary }}>
+        <div className="font-display" style={{ fontSize: '40px', lineHeight: 1, color: teams.X.primary, marginLeft: '8px' }}>
           {scores.X}
         </div>
       </div>
 
       {/* Center */}
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', padding: '0 16px' }}>
-        <div className="font-display" style={{ fontSize: '22px', color: 'rgba(255,255,255,0.15)', letterSpacing: '4px' }}>VS</div>
-        <div style={{ width: '1px', height: '40px', background: 'rgba(255,255,255,0.08)' }} />
-        <div style={{ fontSize: '10px', letterSpacing: '3px', color: 'rgba(255,255,255,0.2)', textTransform: 'uppercase' }}>Wins</div>
+      <div className="font-display" style={{ fontSize: '16px', color: 'rgba(255,255,255,0.15)', letterSpacing: '4px' }}>
+        VS
       </div>
 
       {/* Away */}
-      <div style={{ textAlign: 'center', flex: 1 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexDirection: 'row-reverse' }}>
         <img src={teams.O.logo} alt={teams.O.short}
-          onError={e => { e.target.style.display = 'none'; e.target.nextSibling.style.display='block'; }}
-          style={{ width: '40px', height: '40px', objectFit: 'contain', margin: '0 auto 6px' }}
+          onError={e => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'inline'; }}
+          style={{ width: '34px', height: '34px', objectFit: 'contain' }}
         />
-        <span style={{ display: 'none', fontSize: '28px' }}>{teams.O.emoji}</span>
-        <div className="font-display" style={{ fontSize: '22px', letterSpacing: '3px', color: teams.O.primary, lineHeight: 1 }}>
-          {teams.O.short}
+        <span style={{ display: 'none', fontSize: '20px' }}>{teams.O.emoji}</span>
+        <div style={{ textAlign: 'right' }}>
+          <div className="font-display" style={{ fontSize: '17px', letterSpacing: '2px', color: teams.O.primary, lineHeight: 1 }}>
+            {teams.O.short}
+          </div>
+          <div style={{ fontSize: '10px', letterSpacing: '2px', color: 'rgba(255,255,255,0.25)', textTransform: 'uppercase' }}>
+            Away
+          </div>
         </div>
-        <div style={{ fontSize: '11px', letterSpacing: '3px', color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', margin: '2px 0 10px' }}>
-          Away
-        </div>
-        <div className="font-display" style={{ fontSize: '56px', lineHeight: 1, color: teams.O.primary }}>
+        <div className="font-display" style={{ fontSize: '40px', lineHeight: 1, color: teams.O.primary, marginRight: '8px' }}>
           {scores.O}
         </div>
       </div>
