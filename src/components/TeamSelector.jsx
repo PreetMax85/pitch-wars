@@ -18,8 +18,9 @@ export default function TeamSelector({ onStart }) {
     <div style={{
       minHeight: '100vh', overflowY: 'auto',
       display: 'flex', flexDirection: 'column', alignItems: 'center',
-      justifyContent: 'safe center', padding: '20px 20px',
+      padding: '20px 20px',
     }}>
+      <div style={{ flex: 1, minHeight: 0 }} />
 
       {/* Header */}
       <div style={{ position: 'relative', textAlign: 'center', marginBottom: '14px' }}>
@@ -182,6 +183,7 @@ export default function TeamSelector({ onStart }) {
           </div>
         </div>
       )}
+      <div style={{ flex: 1, minHeight: 0 }} />
     </div>
   );
 }
