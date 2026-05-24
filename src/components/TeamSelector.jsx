@@ -7,59 +7,57 @@ export default function TeamSelector({ onStart }) {
   const [step, setStep] = useState(1);
 
   const handlePick = (team) => {
-    if (step === 1) {
-      setHomeTeam(team);
-      setAwayTeam(null);
-      setStep(2);
-    } else {
-      if (team.id === homeTeam?.id) return;
-      setAwayTeam(team);
-    }
+    if (step === 1) { setHomeTeam(team); setAwayTeam(null); setStep(2); }
+    else { if (team.id !== homeTeam?.id) setAwayTeam(team); }
   };
 
   const reset = () => { setHomeTeam(null); setAwayTeam(null); setStep(1); };
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '40px 24px' }}>
+    /* Scrollable full-screen container */
+    <div style={{
+      minHeight: '100vh', overflowY: 'auto',
+      display: 'flex', flexDirection: 'column', alignItems: 'center',
+      justifyContent: 'center', padding: '28px 20px',
+    }}>
 
-      {/* ── IPL-style header gradient banner ── */}
-      <div style={{ position: 'relative', textAlign: 'center', marginBottom: '36px' }}>
+      {/* Header */}
+      <div style={{ position: 'relative', textAlign: 'center', marginBottom: '20px' }}>
         <div style={{
-          position: 'absolute', inset: '-20px -60px', zIndex: 0,
-          background: 'radial-gradient(ellipse at center, rgba(253,185,19,0.15) 0%, transparent 70%)',
+          position: 'absolute', inset: '-16px -60px', zIndex: 0,
+          background: 'radial-gradient(ellipse at center, rgba(253,185,19,0.13) 0%, transparent 70%)',
           pointerEvents: 'none',
         }} />
-        <p style={{ fontFamily: "'Barlow Condensed'", fontSize: '11px', letterSpacing: '6px', color: 'rgba(253,185,19,0.7)', textTransform: 'uppercase', marginBottom: '8px', position: 'relative', zIndex: 1 }}>
-          IPL EDITION 2025
+        <p style={{ fontSize: 'clamp(13px, 2.5vw, 18px)', letterSpacing: '8px', color: 'rgba(253,185,19,0.85)', textTransform: 'uppercase', marginBottom: '6px', position: 'relative', zIndex: 1, textShadow: '0 0 20px rgba(253,185,19,0.2)' }}>
+          IPL Edition 2026
         </p>
-        <h1 className="font-display" style={{ fontSize: 'clamp(56px, 12vw, 96px)', lineHeight: 1, letterSpacing: '4px', color: '#fff', position: 'relative', zIndex: 1 }}>
+        <h1 className="font-display" style={{ fontSize: 'clamp(44px, 9vw, 80px)', lineHeight: 1, letterSpacing: '4px', color: '#fff', position: 'relative', zIndex: 1 }}>
           PITCH <span style={{ color: '#FDB913' }}>WARS</span>
         </h1>
-        <p style={{ fontFamily: "'Barlow Condensed'", fontSize: '13px', letterSpacing: '8px', color: 'rgba(255,255,255,0.25)', textTransform: 'uppercase', marginTop: '6px', position: 'relative', zIndex: 1 }}>
+        <p style={{ fontSize: 'clamp(13px, 2.5vw, 20px)', letterSpacing: '10px', color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', marginTop: '6px', position: 'relative', zIndex: 1 }}>
           TIC TAC TOE
         </p>
-        {/* Decorative line */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginTop: '16px', position: 'relative', zIndex: 1 }}>
-          <div style={{ height: '1px', width: '60px', background: 'linear-gradient(to right, transparent, rgba(253,185,19,0.4))' }} />
-          <span style={{ color: '#FDB913', fontSize: '16px' }}>🏆</span>
-          <div style={{ height: '1px', width: '60px', background: 'linear-gradient(to left, transparent, rgba(253,185,19,0.4))' }} />
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginTop: '10px', position: 'relative', zIndex: 1 }}>
+          <div style={{ height: '1px', width: '48px', background: 'linear-gradient(to right, transparent, rgba(253,185,19,0.35))' }} />
+          <span style={{ color: '#FDB913', fontSize: '14px' }}>🏆</span>
+          <div style={{ height: '1px', width: '48px', background: 'linear-gradient(to left, transparent, rgba(253,185,19,0.35))' }} />
         </div>
       </div>
 
-      {/* ── Step pills ── */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
+      {/* Step pills */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
         {[
           { label: homeTeam ? `${homeTeam.short} ✓` : 'Home', active: step === 1, done: !!homeTeam },
           { label: awayTeam ? `${awayTeam.short} ✓` : 'Away', active: step === 2, done: !!awayTeam },
         ].map((pill, i) => (
-          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            {i > 0 && <div style={{ width: '32px', height: '1px', background: 'rgba(255,255,255,0.15)' }} />}
+          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            {i > 0 && <div style={{ width: '28px', height: '1px', background: 'rgba(255,255,255,0.12)' }} />}
             <div style={{
-              padding: '5px 16px', borderRadius: '999px', fontSize: '12px',
+              padding: '4px 14px', borderRadius: '999px', fontSize: '11px',
               fontFamily: "'Barlow Condensed'", letterSpacing: '3px', textTransform: 'uppercase',
-              background: pill.done ? 'rgba(74,222,128,0.1)' : pill.active ? 'rgba(253,185,19,0.15)' : 'transparent',
-              border: `1px solid ${pill.done ? '#4ade80' : pill.active ? '#FDB913' : 'rgba(255,255,255,0.12)'}`,
-              color: pill.done ? '#4ade80' : pill.active ? '#FDB913' : 'rgba(255,255,255,0.3)',
+              background: pill.done ? 'rgba(74,222,128,0.1)' : pill.active ? 'rgba(253,185,19,0.12)' : 'transparent',
+              border: `1px solid ${pill.done ? '#4ade80' : pill.active ? '#FDB913' : 'rgba(255,255,255,0.1)'}`,
+              color: pill.done ? '#4ade80' : pill.active ? '#FDB913' : 'rgba(255,255,255,0.25)',
             }}>
               {pill.label}
             </div>
@@ -67,20 +65,20 @@ export default function TeamSelector({ onStart }) {
         ))}
       </div>
 
-      <p style={{ fontFamily: "'Barlow Condensed'", fontSize: '15px', color: 'rgba(255,255,255,0.4)', marginBottom: '24px', letterSpacing: '1px' }}>
+      <p style={{ fontFamily: "'Barlow Condensed'", fontSize: '13px', color: 'rgba(255,255,255,0.35)', marginBottom: '16px', letterSpacing: '0.5px' }}>
         {step === 1 ? 'Pick HOME team (plays as ✕)' :
           awayTeam ? 'Both teams locked in! Ready to battle.' :
           `Pick AWAY team vs ${homeTeam?.short} (plays as ○)`}
       </p>
 
-      {/* ── 10-team grid ── */}
+      {/* 10-team grid: 5 cols × 2 rows, compact cards */}
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(5, 1fr)',
-        gap: '12px',
+        gap: '10px',
         width: '100%',
-        maxWidth: '760px',
-        marginBottom: '32px',
+        maxWidth: '680px',
+        marginBottom: '20px',
       }}>
         {TEAMS.map((team) => {
           const isHome = homeTeam?.id === team.id;
@@ -89,34 +87,26 @@ export default function TeamSelector({ onStart }) {
           const isDisabled = step === 2 && isHome;
 
           return (
-            <button
-              key={team.id}
-              onClick={() => !isDisabled && handlePick(team)}
-              style={{
-                position: 'relative',
-                padding: '16px 10px',
-                borderRadius: '14px',
-                textAlign: 'center',
-                cursor: isDisabled ? 'not-allowed' : 'pointer',
-                border: `2px solid ${isSelected ? team.primary : 'rgba(255,255,255,0.08)'}`,
-                background: isSelected
-                  ? `linear-gradient(160deg, ${team.primary}20 0%, ${team.primary}08 100%)`
-                  : '#0c1f14',
-                boxShadow: isSelected ? `0 0 24px ${team.primary}30, inset 0 0 20px ${team.primary}08` : 'none',
-                opacity: isDisabled ? 0.35 : 1,
-                transform: isSelected ? 'translateY(-3px)' : 'none',
-                transition: 'all 0.2s ease',
-                outline: 'none',
-              }}
-            >
-              {/* top color bar */}
-              <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3px', borderRadius: '14px 14px 0 0', background: team.primary }} />
+            <button key={team.id} onClick={() => !isDisabled && handlePick(team)} style={{
+              position: 'relative',
+              padding: '14px 8px 12px',
+              borderRadius: '12px', textAlign: 'center',
+              cursor: isDisabled ? 'not-allowed' : 'pointer',
+              border: `2px solid ${isSelected ? team.primary : 'rgba(255,255,255,0.07)'}`,
+              background: isSelected
+                ? `linear-gradient(160deg,${team.primary}22 0%,${team.primary}08 100%)`
+                : '#0c1f14',
+              boxShadow: isSelected ? `0 0 20px ${team.primary}28` : 'none',
+              opacity: isDisabled ? 0.3 : 1,
+              transform: isSelected ? 'translateY(-2px)' : 'none',
+              transition: 'all 0.18s ease', outline: 'none',
+            }}>
+              <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3px', borderRadius: '11px 11px 0 0', background: team.primary }} />
 
-              {/* badge */}
               {isSelected && (
                 <div style={{
-                  position: 'absolute', top: '7px', right: '7px',
-                  fontSize: '9px', padding: '2px 6px', borderRadius: '4px',
+                  position: 'absolute', top: '5px', right: '5px',
+                  fontSize: '8px', padding: '2px 5px', borderRadius: '3px',
                   fontFamily: "'Barlow Condensed'", fontWeight: 700, letterSpacing: '1px',
                   background: team.primary, color: team.darkText ? '#000' : '#fff',
                 }}>
@@ -124,19 +114,17 @@ export default function TeamSelector({ onStart }) {
                 </div>
               )}
 
-              {/* logo */}
-              <img
-                src={team.logo}
-                alt={team.short}
-                onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }}
-                style={{ width: '44px', height: '44px', objectFit: 'contain', margin: '0 auto 8px' }}
+              <img src={team.logo} alt={team.short}
+                onError={e => { e.target.style.display='none'; e.target.nextSibling.style.display='block'; }}
+                style={{ width: '36px', height: '36px', objectFit: 'contain', margin: '0 auto 6px', display: 'block' }}
               />
-              <span style={{ display: 'none', fontSize: '28px', marginBottom: '8px' }}>{team.emoji}</span>
+              <span style={{ display: 'none', fontSize: '24px', marginBottom: '6px' }}>{team.emoji}</span>
 
-              <div className="font-display" style={{ fontSize: '20px', letterSpacing: '2px', color: isSelected ? team.primary : '#fff', lineHeight: 1 }}>
+              <div className="font-display" style={{ fontSize: '17px', letterSpacing: '1.5px', color: isSelected ? team.primary : '#fff', lineHeight: 1 }}>
                 {team.short}
               </div>
-              <div style={{ fontSize: '10px', color: 'rgba(255,255,255,0.3)', marginTop: '3px', lineHeight: 1.2 }}>
+              <div style={{ fontSize: '9px', color: 'rgba(255,255,255,0.28)', marginTop: '2px', lineHeight: 1.2 }}>
+                {/* Show last 2 words of team name */}
                 {team.name.split(' ').slice(-2).join(' ')}
               </div>
             </button>
@@ -144,13 +132,13 @@ export default function TeamSelector({ onStart }) {
         })}
       </div>
 
-      {/* ── Actions row ── */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+      {/* Actions */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
         {(homeTeam || awayTeam) && (
           <button onClick={reset} style={{
-            padding: '12px 20px', borderRadius: '10px', fontSize: '13px',
+            padding: '11px 18px', borderRadius: '9px', fontSize: '12px',
             fontFamily: "'Barlow Condensed'", letterSpacing: '2px', textTransform: 'uppercase',
-            color: 'rgba(255,255,255,0.4)', background: 'transparent',
+            color: 'rgba(255,255,255,0.35)', background: 'transparent',
             border: '1px solid rgba(255,255,255,0.1)', cursor: 'pointer',
           }}>
             Reset
@@ -158,15 +146,15 @@ export default function TeamSelector({ onStart }) {
         )}
         {homeTeam && awayTeam && (
           <button onClick={() => onStart({ X: homeTeam, O: awayTeam })} style={{
-            padding: '14px 40px', borderRadius: '10px', cursor: 'pointer',
-            fontFamily: "'Bebas Neue'", fontSize: '24px', letterSpacing: '4px',
-            background: `linear-gradient(135deg, ${homeTeam.primary}, ${awayTeam.primary})`,
+            padding: '12px 36px', borderRadius: '9px', cursor: 'pointer',
+            fontFamily: "'Bebas Neue'", fontSize: '22px', letterSpacing: '4px',
+            background: `linear-gradient(135deg,${homeTeam.primary},${awayTeam.primary})`,
             color: '#000', border: 'none',
-            boxShadow: `0 4px 24px ${homeTeam.primary}50`,
-            transition: 'transform 0.15s, box-shadow 0.15s',
+            boxShadow: `0 4px 20px ${homeTeam.primary}44`,
+            transition: 'transform 0.15s',
           }}
-            onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.04)'; }}
-            onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; }}
+            onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.04)'}
+            onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
           >
             START MATCH
           </button>
@@ -175,15 +163,15 @@ export default function TeamSelector({ onStart }) {
 
       {/* VS preview */}
       {homeTeam && awayTeam && (
-        <div style={{ display: 'flex', alignItems: 'center', gap: '24px', marginTop: '28px', animation: 'fadeSlideUp 0.4s ease forwards' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginTop: '20px', animation: 'fadeSlideUp 0.4s ease' }}>
           <div style={{ textAlign: 'center' }}>
-            <img src={homeTeam.logo} alt={homeTeam.short} onError={e => e.target.style.display='none'} style={{ width: '36px', height: '36px', objectFit: 'contain', margin: '0 auto 4px' }} />
-            <div className="font-display" style={{ fontSize: '18px', color: homeTeam.primary, letterSpacing: '2px' }}>{homeTeam.short}</div>
+            <img src={homeTeam.logo} alt="" onError={e => e.target.style.display='none'} style={{ width: '28px', height: '28px', objectFit: 'contain', margin: '0 auto 3px' }} />
+            <div className="font-display" style={{ fontSize: '16px', color: homeTeam.primary, letterSpacing: '2px' }}>{homeTeam.short}</div>
           </div>
-          <div className="font-display" style={{ fontSize: '28px', color: 'rgba(255,255,255,0.2)', letterSpacing: '4px' }}>VS</div>
+          <div className="font-display" style={{ fontSize: '22px', color: 'rgba(255,255,255,0.18)', letterSpacing: '4px' }}>VS</div>
           <div style={{ textAlign: 'center' }}>
-            <img src={awayTeam.logo} alt={awayTeam.short} onError={e => e.target.style.display='none'} style={{ width: '36px', height: '36px', objectFit: 'contain', margin: '0 auto 4px' }} />
-            <div className="font-display" style={{ fontSize: '18px', color: awayTeam.primary, letterSpacing: '2px' }}>{awayTeam.short}</div>
+            <img src={awayTeam.logo} alt="" onError={e => e.target.style.display='none'} style={{ width: '28px', height: '28px', objectFit: 'contain', margin: '0 auto 3px' }} />
+            <div className="font-display" style={{ fontSize: '16px', color: awayTeam.primary, letterSpacing: '2px' }}>{awayTeam.short}</div>
           </div>
         </div>
       )}

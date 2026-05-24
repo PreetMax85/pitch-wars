@@ -11,104 +11,95 @@ export default function GameBoard({ teams, game, onChangeTeams }) {
   useEffect(() => {
     if (commentary) {
       setCommentaryVisible(true);
-      const t = setTimeout(() => setCommentaryVisible(false), 2800);
+      const t = setTimeout(() => setCommentaryVisible(false), 2600);
       return () => clearTimeout(t);
     }
   }, [commentary]);
 
   const currentTeam = currentPlayer === 'X' ? teams.X : teams.O;
-
   const handleChangeTeams = () => { resetAll(); onChangeTeams(); };
 
   return (
-    /* Full screen centering wrapper */
     <div style={{
       minHeight: '100vh',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      padding: '32px 20px',
+      padding: '20px',
+      overflowY: 'auto',
     }}>
-      {/* Content column — fixed width, centered */}
       <div style={{
         width: '100%',
-        maxWidth: '420px',
+        maxWidth: '380px',          /* narrower = smaller cells = fits viewport */
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        gap: '10px',                /* unified gap between all sections */
       }}>
 
-        {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: '24px' }}>
-          <p style={{ fontSize: '10px', letterSpacing: '5px', color: 'rgba(253,185,19,0.5)', textTransform: 'uppercase', marginBottom: '4px' }}>
-            IPL Edition
+        {/* Header — compact */}
+        <div style={{ textAlign: 'center', paddingBottom: '2px' }}>
+          <p style={{ fontSize: '11px', letterSpacing: '6px', color: 'rgba(253,185,19,0.7)', textTransform: 'uppercase', marginBottom: '2px' }}>
+            IPL Edition 2026
           </p>
-          <h1 className="font-display" style={{ fontSize: '40px', letterSpacing: '4px', color: '#fff', lineHeight: 1 }}>
+          <h1 className="font-display" style={{ fontSize: '32px', letterSpacing: '4px', color: '#fff', lineHeight: 1 }}>
             PITCH WARS
           </h1>
         </div>
 
-        {/* Score */}
+        {/* Score — slim horizontal bar */}
         <ScoreTracker teams={teams} scores={scores} />
 
         {/* Turn indicator */}
         {!result && (
           <div style={{
-            display: 'flex', alignItems: 'center', gap: '10px',
-            padding: '10px 20px', borderRadius: '999px', marginBottom: '20px',
+            display: 'flex', alignItems: 'center', gap: '8px',
+            padding: '8px 18px', borderRadius: '999px',
             background: `${currentTeam.primary}14`,
             border: `1px solid ${currentTeam.primary}40`,
-            animation: 'fadeSlideUp 0.3s ease',
+            alignSelf: 'center',
           }}>
-            <img
-              src={currentTeam.logo} alt={currentTeam.short}
-              onError={e => { e.target.style.display='none'; e.target.nextSibling.style.display='block'; }}
-              style={{ width: '24px', height: '24px', objectFit: 'contain' }}
+            <img src={currentTeam.logo} alt=""
+              onError={e => { e.target.style.display='none'; e.target.nextSibling.style.display='inline'; }}
+              style={{ width: '20px', height: '20px', objectFit: 'contain' }}
             />
-            <span style={{ display: 'none', fontSize: '20px' }}>{currentTeam.emoji}</span>
-            <span className="font-display" style={{ fontSize: '20px', letterSpacing: '3px', color: currentTeam.primary }}>
+            <span style={{ display: 'none', fontSize: '16px' }}>{currentTeam.emoji}</span>
+            <span className="font-display" style={{ fontSize: '17px', letterSpacing: '3px', color: currentTeam.primary }}>
               {currentTeam.short}
             </span>
-            <span style={{ fontSize: '12px', letterSpacing: '3px', color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase' }}>
+            <span style={{ fontSize: '11px', letterSpacing: '2px', color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase' }}>
               IT'S YOUR MOVE
             </span>
           </div>
         )}
 
-        {/* ── BOARD with cricket pitch background ── */}
-        <div style={{ position: 'relative', width: '100%', borderRadius: '18px', overflow: 'hidden' }}>
-          {/* Cricket pitch image */}
+        {/* Board */}
+        <div style={{ position: 'relative', width: '100%', borderRadius: '16px', overflow: 'hidden', flexShrink: 0 }}>
+          {/* Pitch image */}
           <div style={{
             position: 'absolute', inset: 0,
-            backgroundImage: 'url(/pitch.jpg)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            filter: 'saturate(0.7)',
+            backgroundImage: 'url(/pitch.png)',
+            backgroundSize: 'cover', backgroundPosition: 'center',
+            filter: 'saturate(0.6)',
           }} />
-          {/* Dark overlay so pieces are visible */}
+          {/* Overlay */}
+          <div style={{ position: 'absolute', inset: 0, background: 'rgba(4,14,8,0.74)' }} />
+          {/* CSS fallback */}
           <div style={{
-            position: 'absolute', inset: 0,
-            background: 'rgba(4, 14, 8, 0.72)',
-          }} />
-          {/* Fallback gradient if no image */}
-          <div style={{
-            position: 'absolute', inset: 0,
-            background: 'linear-gradient(160deg, #0b2014 0%, #0f2819 50%, #091a10 100%)',
-            zIndex: -1,
+            position: 'absolute', inset: 0, zIndex: -1,
+            background: 'linear-gradient(160deg,#0b2014,#0f2819 50%,#091a10)',
           }} />
 
           {/* 3×3 grid */}
           <div style={{
             position: 'relative', zIndex: 1,
-            display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: '10px', padding: '16px',
+            display: 'grid', gridTemplateColumns: 'repeat(3,1fr)',
+            gap: '8px', padding: '12px',
           }}>
             {board.map((cell, i) => (
               <Cell
-                key={i}
-                value={cell}
-                index={i}
-                onClick={(idx) => makeMove(idx, COMMENTARY)}
+                key={i} value={cell} index={i}
+                onClick={idx => makeMove(idx, COMMENTARY)}
                 teams={teams}
                 isWinCell={result?.combo?.includes(i) && result.winner !== 'draw'}
                 isLastMove={i === lastMove && !result}
@@ -118,43 +109,39 @@ export default function GameBoard({ teams, game, onChangeTeams }) {
         </div>
 
         {/* Commentary */}
-        <div style={{ height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '12px' }}>
+        <div style={{ height: '22px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <p style={{
-            fontSize: '14px', fontStyle: 'italic', color: 'rgba(255,255,255,0.55)',
-            letterSpacing: '0.5px', textAlign: 'center',
+            fontSize: '13px', fontStyle: 'italic', color: 'rgba(255,255,255,0.5)',
+            textAlign: 'center', letterSpacing: '0.3px',
             opacity: commentaryVisible ? 1 : 0,
-            transform: commentaryVisible ? 'translateY(0)' : 'translateY(6px)',
-            transition: 'all 0.4s ease',
+            transform: commentaryVisible ? 'translateY(0)' : 'translateY(5px)',
+            transition: 'all 0.35s ease',
           }}>
             {commentary}
           </p>
         </div>
 
-        {/* Buttons */}
-        <div style={{ display: 'flex', gap: '12px', marginTop: '20px' }}>
-          <button
-            onClick={resetGame}
-            style={{
-              padding: '12px 28px', borderRadius: '10px', cursor: 'pointer',
-              fontFamily: "'Bebas Neue'", fontSize: '20px', letterSpacing: '3px',
-              color: 'rgba(255,255,255,0.75)', background: 'rgba(255,255,255,0.05)',
-              border: '1px solid rgba(255,255,255,0.12)', transition: 'all 0.15s',
-            }}
-            onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.1)'; e.currentTarget.style.color = '#fff'; }}
-            onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; e.currentTarget.style.color = 'rgba(255,255,255,0.75)'; }}
+        {/* Action buttons */}
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <button onClick={resetGame} style={{
+            padding: '10px 24px', borderRadius: '9px', cursor: 'pointer',
+            fontFamily: "'Bebas Neue'", fontSize: '18px', letterSpacing: '3px',
+            color: 'rgba(255,255,255,0.7)', background: 'rgba(255,255,255,0.05)',
+            border: '1px solid rgba(255,255,255,0.12)', transition: 'all 0.15s',
+          }}
+            onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.1)'}
+            onMouseLeave={e => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'}
           >
             NEW GAME
           </button>
-          <button
-            onClick={handleChangeTeams}
-            style={{
-              padding: '12px 20px', borderRadius: '10px', cursor: 'pointer',
-              fontFamily: "'Barlow Condensed'", fontSize: '13px', letterSpacing: '2px', textTransform: 'uppercase',
-              color: 'rgba(255,255,255,0.3)', background: 'transparent',
-              border: '1px solid rgba(255,255,255,0.08)', transition: 'all 0.15s',
-            }}
-            onMouseEnter={e => { e.currentTarget.style.color = 'rgba(255,255,255,0.6)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'; }}
-            onMouseLeave={e => { e.currentTarget.style.color = 'rgba(255,255,255,0.3)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; }}
+          <button onClick={handleChangeTeams} style={{
+            padding: '10px 16px', borderRadius: '9px', cursor: 'pointer',
+            fontFamily: "'Barlow Condensed'", fontSize: '12px', letterSpacing: '2px', textTransform: 'uppercase',
+            color: 'rgba(255,255,255,0.3)', background: 'transparent',
+            border: '1px solid rgba(255,255,255,0.08)', transition: 'all 0.15s',
+          }}
+            onMouseEnter={e => e.currentTarget.style.color = 'rgba(255,255,255,0.6)'}
+            onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.3)'}
           >
             Change Teams
           </button>
@@ -162,7 +149,6 @@ export default function GameBoard({ teams, game, onChangeTeams }) {
 
       </div>
 
-      {/* Win overlay */}
       <WinOverlay result={result} teams={teams} onPlayAgain={resetGame} onChangeTeams={handleChangeTeams} />
     </div>
   );
