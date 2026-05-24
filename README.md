@@ -1,16 +1,27 @@
-# React + Vite
+# Pitch Wars ⚔️🏏
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+IPL-themed Tic-Tac-Toe — pick your home and away teams from all 10 franchises, then battle it out on the pitch. Three in a row wins the trophy.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- All 10 IPL 2026 teams with official logos
+- Team selector with home/away pick flow
+- Cricket pitch game board with live commentary
+- Win overlay with team branding
+- Score tracking across rounds
 
-## React Compiler
+## Built With
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React 19 + Vite
+- Tailwind CSS v4
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```sh
+npm install
+npm run dev
+```
+
+## License
+
+MIT
