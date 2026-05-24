@@ -4,81 +4,67 @@ export default function Cell({ value, index, onClick, teams, isWinCell, isLastMo
   const [popped, setPopped] = useState(false);
 
   useEffect(() => {
-    if (value) setPopped(true);
+    if (value) {
+      setPopped(false);
+      requestAnimationFrame(() => setPopped(true));
+    }
   }, [value]);
 
   const team = value === 'X' ? teams.X : value === 'O' ? teams.O : null;
 
-  const handleClick = () => {
-    if (!value) onClick(index);
-  };
-
   return (
     <button
-      onClick={handleClick}
-      className="relative flex items-center justify-center aspect-square rounded-lg transition-all duration-200 group select-none"
+      onClick={() => !value && onClick(index)}
       style={{
+        position: 'relative',
+        aspectRatio: '1 / 1',
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '4px',
+        borderRadius: '10px',
+        border: `2px solid ${isWinCell ? team?.primary : isLastMove ? `${team?.primary}60` : 'rgba(255,255,255,0.08)'}`,
         background: isWinCell
           ? `${team?.primary}22`
-          : value
-          ? '#0f2018'
-          : '#0d1a14',
-        border: isWinCell
-          ? `2px solid ${team?.primary}`
-          : isLastMove
-          ? `2px solid ${team?.primary}66`
-          : '2px solid #1a3028',
-        boxShadow: isWinCell
-          ? `0 0 24px ${team?.primary}55, inset 0 0 24px ${team?.primary}11`
-          : 'none',
+          : 'rgba(0,0,0,0.35)',
+        boxShadow: isWinCell ? `0 0 28px ${team?.primary}50, inset 0 0 20px ${team?.primary}12` : 'none',
         cursor: value ? 'default' : 'pointer',
+        backdropFilter: 'blur(4px)',
         animation: isWinCell ? 'winPulse 0.8s ease-in-out infinite' : 'none',
+        transition: 'border-color 0.2s, background 0.2s',
+        outline: 'none',
       }}
-      onMouseEnter={(e) => {
-        if (!value) {
-          e.currentTarget.style.background = '#162b1e';
-          e.currentTarget.style.borderColor = '#2a4a38';
-        }
-      }}
-      onMouseLeave={(e) => {
-        if (!value) {
-          e.currentTarget.style.background = '#0d1a14';
-          e.currentTarget.style.borderColor = '#1a3028';
-        }
-      }}
+      onMouseEnter={e => { if (!value) e.currentTarget.style.background = 'rgba(255,255,255,0.06)'; }}
+      onMouseLeave={e => { if (!value) e.currentTarget.style.background = 'rgba(0,0,0,0.35)'; }}
     >
-      {/* Pitch texture lines */}
-      {!value && (
-        <div className="absolute inset-0 opacity-10 pointer-events-none overflow-hidden rounded-lg">
-          <div className="absolute inset-0" style={{
-            backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 8px, #4ade8022 8px, #4ade8022 9px)',
-          }} />
-        </div>
-      )}
-
-      {/* Team marker */}
       {team && (
-        <div
-          className="flex flex-col items-center justify-center gap-0.5"
-          style={{
-            animation: popped ? 'cellPop 0.35s cubic-bezier(0.34,1.56,0.64,1) forwards' : 'none',
-            opacity: popped ? 1 : 0,
-          }}
-        >
-          <span className="text-3xl md:text-4xl leading-none">{team.emoji}</span>
-          <span
-            className="font-display text-xs tracking-widest leading-none"
-            style={{ color: team.primary }}
-          >
+        <div style={{
+          display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '3px',
+          animation: popped ? 'cellPop 0.35s cubic-bezier(0.34,1.56,0.64,1) forwards' : 'none',
+          opacity: popped ? 1 : 0,
+        }}>
+          <img
+            src={team.logo}
+            alt={team.short}
+            onError={e => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }}
+            style={{ width: '42px', height: '42px', objectFit: 'contain' }}
+          />
+          <span style={{ display: 'none', fontSize: '32px' }}>{team.emoji}</span>
+          <span className="font-display" style={{ fontSize: '13px', letterSpacing: '2px', color: team.primary, lineHeight: 1 }}>
             {team.short}
           </span>
         </div>
       )}
 
-      {/* Hover ghost indicator */}
       {!value && (
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-20 transition-opacity pointer-events-none">
-          <div className="w-8 h-8 rounded-full border-2 border-white" />
+        <div style={{
+          position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center',
+          opacity: 0, transition: 'opacity 0.15s',
+          pointerEvents: 'none',
+        }} className="hover-hint">
+          <div style={{ width: '28px', height: '28px', borderRadius: '50%', border: '2px solid rgba(255,255,255,0.2)' }} />
         </div>
       )}
     </button>

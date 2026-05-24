@@ -1,10 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
 @import "tailwindcss";
-
-@theme {
-  --font-display: 'Bebas Neue', cursive;
-  --font-sans: 'Barlow Condensed', sans-serif;
-}
 
 * {
   box-sizing: border-box;
@@ -17,32 +12,42 @@ body {
   background: #050e08;
   color: #f0f0f0;
   -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .font-display {
   font-family: 'Bebas Neue', cursive;
 }
 
-/* Cell pop in animation */
+/* ── Animations ─────────────────────────────────── */
 @keyframes cellPop {
   0%   { transform: scale(0) rotate(-15deg); opacity: 0; }
-  60%  { transform: scale(1.15) rotate(4deg); opacity: 1; }
+  60%  { transform: scale(1.18) rotate(4deg); opacity: 1; }
   100% { transform: scale(1) rotate(0deg); opacity: 1; }
 }
 
-/* Win cell pulse */
 @keyframes winPulse {
-  0%, 100% { transform: scale(1); }
-  50%       { transform: scale(1.04); }
+  0%, 100% { transform: scale(1); filter: brightness(1); }
+  50%       { transform: scale(1.06); filter: brightness(1.2); }
 }
 
-/* Confetti fall */
 @keyframes confettiFall {
-  0%   { transform: translateY(-40px) rotate(0deg);   opacity: 1; }
-  100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+  0%   { transform: translateY(-40px) rotate(0deg);    opacity: 1; }
+  100% { transform: translateY(110vh) rotate(720deg);  opacity: 0; }
 }
 
-/* Scrollbar */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: #050e08; }
-::-webkit-scrollbar-thumb { background: #1a3028; border-radius: 2px; }
+@keyframes fadeSlideUp {
+  0%   { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
