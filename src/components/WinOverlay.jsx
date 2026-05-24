@@ -62,8 +62,8 @@ export default function WinOverlay({ result, teams, onPlayAgain, onChangeTeams }
 
       <div style={{
         position: 'relative', zIndex: 10, textAlign: 'center',
-        padding: '48px 40px', borderRadius: '24px',
-        maxWidth: '380px', width: '100%', margin: '0 20px',
+        padding: '48px 40px 32px', borderRadius: '24px',
+        maxWidth: '420px', width: '100%', margin: '0 20px',
         background: '#060f09',
         border: `2px solid ${isDraw ? 'rgba(255,255,255,0.12)' : winnerTeam.primary}`,
         boxShadow: isDraw ? 'none' : `0 0 80px ${winnerTeam.primary}30`,
@@ -74,27 +74,27 @@ export default function WinOverlay({ result, teams, onPlayAgain, onChangeTeams }
         {isDraw ? (
           <>
             <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginBottom: '16px' }}>
-              <img src={teams.X.logo} alt="" onError={e=>e.target.style.display='none'} style={{ width: '56px', height: '56px', objectFit: 'contain' }} />
-              <img src={teams.O.logo} alt="" onError={e=>e.target.style.display='none'} style={{ width: '56px', height: '56px', objectFit: 'contain' }} />
+              <img src={teams.X.logo} alt="" onError={e=>e.target.style.display='none'} style={{ width: 'clamp(72px, 12vw, 96px)', height: 'clamp(72px, 12vw, 96px)', objectFit: 'contain' }} />
+              <img src={teams.O.logo} alt="" onError={e=>e.target.style.display='none'} style={{ width: 'clamp(72px, 12vw, 96px)', height: 'clamp(72px, 12vw, 96px)', objectFit: 'contain' }} />
             </div>
-            <p style={{ fontSize: '11px', letterSpacing: '5px', color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase', marginBottom: '8px' }}>It's a</p>
+            <p style={{ fontSize: '14px', letterSpacing: '6px', color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', marginBottom: '8px' }}>It's a</p>
             <h2 className="font-display" style={{ fontSize: '52px', color: '#fff', letterSpacing: '4px', lineHeight: 1 }}>{msgRef.current}</h2>
-            <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.3)', marginTop: '10px', fontStyle: 'italic' }}>Neither side blinked. Pure cricket.</p>
+            <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.5)', marginTop: '10px', fontStyle: 'italic' }}>Neither side blinked. Pure cricket.</p>
           </>
         ) : (
           <>
-            <img src={winnerTeam.logo} alt="" onError={e=>e.target.style.display='none'} style={{ width: '72px', height: '72px', objectFit: 'contain', margin: '0 auto 12px' }} />
-            <p style={{ fontSize: '11px', letterSpacing: '5px', textTransform: 'uppercase', marginBottom: '6px', color: winnerTeam.primary, opacity: 0.7 }}>
+            <img src={winnerTeam.logo} alt="" onError={e=>e.target.style.display='none'} style={{ width: 'clamp(88px, 14vw, 112px)', height: 'clamp(88px, 14vw, 112px)', objectFit: 'contain', margin: '0 auto 12px' }} />
+            <p style={{ fontSize: 'clamp(18px, 3vw, 24px)', letterSpacing: '6px', textTransform: 'uppercase', marginBottom: '6px', color: winnerTeam.primary }}>
               {winnerTeam.name}
             </p>
             <h2 className="font-display" style={{ fontSize: '54px', color: winnerTeam.primary, letterSpacing: '3px', lineHeight: 1 }}>
               {msgRef.current}
             </h2>
-            <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.3)', marginTop: '8px', fontStyle: 'italic' }}>
+            <p style={{ fontSize: 'clamp(18px, 3vw, 24px)', color: 'rgba(255,255,255,0.7)', marginTop: '10px', fontStyle: 'italic' }}>
               "{winnerTeam.tagline}"
             </p>
             {loserTeam && (
-              <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.18)', marginTop: '10px' }}>
+              <p style={{ fontSize: 'clamp(16px, 2.5vw, 20px)', color: 'rgba(255,255,255,0.55)', marginTop: '14px' }}>
                 {loserTeam.short} fought hard. Better luck next time.
               </p>
             )}
