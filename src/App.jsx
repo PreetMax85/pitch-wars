@@ -18,7 +18,7 @@ export default function App() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: '#050e08', position: 'relative', overflow: 'hidden' }}>
+    <div style={{ minHeight: '100vh', background: '#050e08', position: 'relative' }}>
       {/* Global ambient glow — always present */}
       <div style={{
         position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 0,

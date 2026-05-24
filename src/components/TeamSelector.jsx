@@ -16,7 +16,7 @@ export default function TeamSelector({ onStart }) {
   return (
     /* Scrollable full-screen container */
     <div style={{
-      minHeight: '100vh', overflowY: 'auto',
+      height: '100vh', overflowY: 'auto',
       display: 'flex', flexDirection: 'column', alignItems: 'center',
       padding: '20px 20px',
     }}>
